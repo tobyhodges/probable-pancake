@@ -196,9 +196,7 @@ still there even if the computer has been restarted. While this storage can be
 local (a hard drive installed inside of it), it is more common for nodes to
 connect to a shared, remote fileserver or cluster of servers.
 
-{% include figure.html url="" max-width="40%"
-file="/fig/node\_anatomy.png"
-alt="Node anatomy" caption="" %}
+![](/fig/node\_anatomy.png){max-width="40%" alt="Node anatomy"}
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 

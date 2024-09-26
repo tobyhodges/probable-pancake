@@ -34,9 +34,7 @@ in a restaurant. If you can relate to an instance where you had to wait for a
 while in a queue to get in to a popular restaurant, then you may now understand
 why sometimes your job do not start instantly as in your laptop.
 
-{% include figure.html max-width="75%" caption=""
-file="/fig/restaurant\_queue\_manager.svg"
-alt="Compare a job scheduler to a waiter in a restaurant" %}
+![](/fig/restaurant\_queue\_manager.svg){alt="Compare a job scheduler to a waiter in a restaurant" max-width="75%"}
 
 The scheduler used in this lesson is {{ site.sched.name }}. Although
 {{ site.sched.name }} is not used everywhere, running jobs is quite similar

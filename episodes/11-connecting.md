@@ -40,9 +40,8 @@ back. We will use the Secure SHell protocol (or SSH) to open an encrypted
 network connection between two machines, allowing you to send \& receive text
 and data without having to worry about prying eyes.
 
-{% include figure.html url="" max-width="50%"
-file="/fig/connect-to-remote.svg"
-alt="Connect to cluster" caption="" %}
+![](/fig/connect-to-remote.svg){max-width="50%" alt="Connect to cluster"}
+
 
 SSH clients are usually command-line tools, where you provide the remote
 machine address as the only required argument. If your username on the remote
