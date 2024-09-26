@@ -519,7 +519,7 @@ parallelization, see the [parallel novice lesson][parallel-novice] lesson.
 
 
 
-[amdahl]: https://en.wikipedia.org/
+[amdahl]: https://en.wikipedia.org/wiki/Amdahl's_law
 [parallel-novice]: https://www.hpc-carpentry.org/hpc-parallel-novice/
 
 
