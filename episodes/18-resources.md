@@ -1,17 +1,22 @@
 ---
-title: "Using resources effectively"
+title: Using resources effectively
 teaching: 10
 exercises: 20
-questions:
-- "How can I review past jobs?"
-- "How can I use this knowledge to create a more accurate submission script?"
-objectives:
-- "Look up job statistics."
-- "Make more accurate resource requests in job scripts based on data describing past performance."
-keypoints:
-- "Accurate job scripts help the queuing system efficiently allocate
-  shared resources."
 ---
+
+::::::::::::::::::::::::::::::::::::::: objectives
+
+- Look up job statistics.
+- Make more accurate resource requests in job scripts based on data describing past performance.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::: questions
+
+- How can I review past jobs?
+- How can I use this knowledge to create a more accurate submission script?
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 We've touched on all the skills you need to interact with an HPC cluster:
 logging in over SSH, loading software modules, submitting parallel jobs, and
@@ -26,13 +31,17 @@ the first place, and its demand for each? In general, unless the software
 documentation or user testimonials provide some idea, we won't know how much
 memory or compute time a program will need.
 
-> ## Read the Documentation
->
-> Most HPC facilities maintain documentation as a wiki, a website, or a
-> document sent along when you register for an account. Take a look at these
-> resources, and search for the software you plan to use: somebody might have
-> written up guidance for getting the most out of it.
-{: .callout}
+:::::::::::::::::::::::::::::::::::::::::  callout
+
+## Read the Documentation
+
+Most HPC facilities maintain documentation as a wiki, a website, or a
+document sent along when you register for an account. Take a look at these
+resources, and search for the software you plan to use: somebody might have
+written up guidance for getting the most out of it.
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 A convenient way of figuring out the resources required for a job to run
 successfully is to submit a test job, and then ask the scheduler about its
@@ -51,12 +60,11 @@ Since we already submitted `amdahl` to run on the cluster, we can query the
 scheduler to see how long our job took and what resources were used. We will
 use `{{ site.sched.hist }}` to get statistics about `parallel-job.sh`.
 
-```
+```bash
 {{ site.remote.prompt }} {{ site.sched.hist }}
 ```
-{: .language-bash}
 
-```
+```output
        JobID    JobName  Partition    Account  AllocCPUS      State ExitCode
 ------------ ---------- ---------- ---------- ---------- ---------- --------
 7               file.sh cpubase_b+ def-spons+          1  COMPLETED      0:0
@@ -69,36 +77,37 @@ use `{{ site.sched.hist }}` to get statistics about `parallel-job.sh`.
 9.batch           batch            def-spons+          1  COMPLETED      0:0
 9.extern         extern            def-spons+          1  COMPLETED      0:0
 ```
-{: .output}
 
 This shows all the jobs we ran today (note that there are multiple entries per
 job).
 To get info about a specific job (for example, 347087), we change command
 slightly.
 
-```
+```bash
 {{ site.remote.prompt }} {{ site.sched.hist }} {{ site.sched.flag.histdetail }} 347087
 ```
-{: .language-bash}
 
 It will show a lot of info; in fact, every single piece of info collected on
 your job by the scheduler will show up here. It may be useful to redirect this
 information to `less` to make it easier to view (use the left and right arrow
 keys to scroll through fields).
 
-```
+```bash
 {{ site.remote.prompt }} {{ site.sched.hist }} {{ site.sched.flag.histdetail }} 347087 | less -S
 ```
-{: .language-bash}
 
-> ## Discussion
->
-> This view can help compare the amount of time requested and actually
-> used, duration of residence in the queue before launching, and memory
-> footprint on the compute node(s).
->
-> How accurate were our estimates?
-{: .discussion}
+::::::::::::::::::::::::::::::::::::::  discussion
+
+## Discussion
+
+This view can help compare the amount of time requested and actually
+used, duration of residence in the queue before launching, and memory
+footprint on the compute node(s).
+
+How accurate were our estimates?
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Improving Resource Requests
 
@@ -113,23 +122,36 @@ actually finish. Specifying the expected runtime in the submission
 script more accurately will help alleviate cluster congestion and may
 get your job dispatched earlier.
 
-> ## Narrow the Time Estimate
->
-> Edit `parallel_job.sh` to set a better time estimate. How close can
-> you get?
->
-> Hint: use `{{ site.sched.flag.time }}`.
->
-> > ## Solution
-> >
-> > The following line tells {{ site.sched.name }} that our job should
-> > finish within 2 minutes:
-> >
-> > ```
-> > {{ site.sched.comment }} {{ site.sched.flag.time }}{% if site.sched.name == "Slurm" %} {% else %}={% endif %}00:02:00
-> > ```
-> > {: .language-bash}
-> {: .solution}
-{: .challenge}
+:::::::::::::::::::::::::::::::::::::::  challenge
 
-{% include links.md %}
+## Narrow the Time Estimate
+
+Edit `parallel_job.sh` to set a better time estimate. How close can
+you get?
+
+Hint: use `{{ site.sched.flag.time }}`.
+
+:::::::::::::::  solution
+
+## Solution
+
+The following line tells {{ site.sched.name }} that our job should
+finish within 2 minutes:
+
+```bash
+{{ site.sched.comment }} {{ site.sched.flag.time }}{% if site.sched.name == "Slurm" %} {% else %}={% endif %}00:02:00
+```
+
+:::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+
+:::::::::::::::::::::::::::::::::::::::: keypoints
+
+- Accurate job scripts help the queuing system efficiently allocate shared resources.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+

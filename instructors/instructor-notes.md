@@ -1,6 +1,5 @@
 ---
-layout: page
-title: "Glossary"
+title: Glossary
 permalink: /guide/
 ---
 
@@ -9,7 +8,7 @@ permalink: /guide/
 The following list captures terms that need to be added to this glossary. This
 is a great way to contribute.
 
-{:auto_ids}
+{:auto\_ids}
 [Accelerator](https://en.wikipedia.org/wiki/Hardware_acceleration)
 :    *to be defined*
 
@@ -18,19 +17,19 @@ is a great way to contribute.
 
 [Central processing unit](https://en.wikipedia.org/wiki/CPU)
 :     or simply *processor* is the (hardware) component of a computer that
-      executes the instructions supplied by a program (software). Most modern
-      desktop computers have multi-core processors, e.g. devices with 2 CPUs
-      are called dual-core, with 4 cores are called quad-core and so on. Each
-      **core** is a separate physical implementation of the electronic
-      circuitry required to execute instructions.
+executes the instructions supplied by a program (software). Most modern
+desktop computers have multi-core processors, e.g. devices with 2 CPUs
+are called dual-core, with 4 cores are called quad-core and so on. Each
+**core** is a separate physical implementation of the electronic
+circuitry required to execute instructions.
 
 [Cloud computing](https://en.wikipedia.org/wiki/Cloud_computing)
 :    *to be defined*
 
 [Cluster](https://en.wikipedia.org/wiki/Computer_cluster)
 :     a collection of computers configured to enable collaboration on a common
-      task by means of purposefully configured hardware (e.g., networking)
-      and software (e.g. workload management).
+task by means of purposefully configured hardware (e.g., networking)
+and software (e.g. workload management).
 
 [Distributed memory](https://en.wikipedia.org/wiki/Distributed_memory)
 :    *to be defined*
@@ -47,7 +46,7 @@ is a great way to contribute.
 [Interconnect](https://en.wikipedia.org/wiki/Supercomputer_architecture)
 :    *to be defined*
 
-[Node](https://en.wikipedia.org/wiki/Node_(computer_science))
+[Node](https://en.wikipedia.org/wiki/Node_\(computer_science\))
 :    *to be defined*
 
 [Parallel](https://en.wikipedia.org/wiki/Parallel_computing)
@@ -56,7 +55,7 @@ is a great way to contribute.
 [Serial](https://en.wikipedia.org/wiki/Serial_computer)
 :    *to be defined*
 
-[Server](https://en.wikipedia.org/wiki/Server_(computing))
+[Server](https://en.wikipedia.org/wiki/Server_\(computing\))
 :    *to be defined*
 
 [Shared memory](https://en.wikipedia.org/wiki/Shared_memory)
@@ -76,3 +75,5 @@ is a great way to contribute.
 
 [Parallel File System](https://en.wikipedia.org/wiki/Distributed_file_systems)
 :    *to be defined*
+
+

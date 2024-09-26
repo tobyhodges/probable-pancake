@@ -1,5 +1,5 @@
 ---
-title: "Learner Profiles"
+title: Learner Profiles
 ---
 
 These profiles describe the potential learners that we anticipate as learners
@@ -55,3 +55,5 @@ Lucy is using a fluid dynamics package that has an option to run in parallel.
 So far, this option was not used on a desktop. In going from 2D to 3D
 simulations, the simulation time has more than tripled. It might be useful to
 take advantage of that parallel feature to speed things up.
+
+

@@ -1,24 +1,26 @@
 ---
-title: "Using shared resources responsibly"
+title: Using shared resources responsibly
 teaching: 15
 exercises: 5
-questions:
-- "How can I be a responsible user?"
-- "How can I protect my data?"
-- "How can I best get large amounts of data off an HPC system?"
-objectives:
-- "Describe how the actions of a single user can affect the experience of others on a shared system."
-- "Discuss the behaviour of a considerate shared system citizen."
-- "Explain the importance of backing up critical data."
-- "Describe the challenges with transferring large amounts of data off HPC systems."
-- "Convert many files to a single archive file using tar."
-keypoints:
-- "Be careful how you use the login node."
-- "Your data on the system is your responsibility."
-- "Plan and test large data transfers."
-- "It is often best to convert many files to a single archive file before
-  transferring."
 ---
+
+::::::::::::::::::::::::::::::::::::::: objectives
+
+- Describe how the actions of a single user can affect the experience of others on a shared system.
+- Discuss the behaviour of a considerate shared system citizen.
+- Explain the importance of backing up critical data.
+- Describe the challenges with transferring large amounts of data off HPC systems.
+- Convert many files to a single archive file using tar.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::: questions
+
+- How can I be a responsible user?
+- How can I protect my data?
+- How can I best get large amounts of data off an HPC system?
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 One of the major differences between using remote HPC resources and your own
 system (e.g. your laptop) is that remote resources are shared. How many users
@@ -47,48 +49,60 @@ library versions that differ from your laptop, and doing an interactive test
 run on the head node is a quick and reliable way to discover and fix these
 issues.
 
-> ## Login Nodes Are a Shared Resource
->
-> Remember, the login node is shared with all other users and your actions
-> could cause issues for other people. Think carefully about the potential
-> implications of issuing commands that may use large amounts of resource.
->
-> Unsure? Ask your friendly systems administrator ("sysadmin") if the thing
-> you're contemplating is suitable for the login node, or if there's another
-> mechanism to get it done safely.
-{: .callout}
+:::::::::::::::::::::::::::::::::::::::::  callout
+
+## Login Nodes Are a Shared Resource
+
+Remember, the login node is shared with all other users and your actions
+could cause issues for other people. Think carefully about the potential
+implications of issuing commands that may use large amounts of resource.
+
+Unsure? Ask your friendly systems administrator ("sysadmin") if the thing
+you're contemplating is suitable for the login node, or if there's another
+mechanism to get it done safely.
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 You can always use the commands `top` and `ps ux` to list the processes that
 are running on the login node along with the amount of CPU and memory they are
 using. If this check reveals that the login node is somewhat idle, you can
 safely use it for your non-routine processing task. If something goes wrong
--- the process takes too long, or doesn't respond -- you can use the
-`kill` command along with the _PID_ to terminate the process.
+\-- the process takes too long, or doesn't respond -- you can use the
+`kill` command along with the *PID* to terminate the process.
 
-> ## Login Node Etiquette
->
-> Which of these commands would be a routine task to run on the login node?
->
-> 1. `python physics_sim.py`
-> 2. `make`
-> 3. `create_directories.sh`
-> 4. `molecular_dynamics_2`
-> 5. `tar -xzf R-3.3.0.tar.gz`
->
-> > ## Solution
-> >
-> > Building software, creating directories, and unpacking software are common
-> > and acceptable > tasks for the login node: options #2 (`make`), #3
-> > (`mkdir`), and #5 (`tar`) are probably OK. Note that script names do not
-> > always reflect their contents: before launching #3, please
-> > `less create_directories.sh` and make sure it's not a Trojan horse.
-> >
-> > Running resource-intensive applications is frowned upon. Unless you are
-> > sure it will not affect other users, do not run jobs like #1 (`python`)
-> > or #4 (custom MD code). If you're unsure, ask your friendly sysadmin for
-> > advice.
-> {: .solution}
-{: .challenge}
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## Login Node Etiquette
+
+Which of these commands would be a routine task to run on the login node?
+
+1. `python physics_sim.py`
+2. `make`
+3. `create_directories.sh`
+4. `molecular_dynamics_2`
+5. `tar -xzf R-3.3.0.tar.gz`
+
+:::::::::::::::  solution
+
+## Solution
+
+Building software, creating directories, and unpacking software are common
+and acceptable > tasks for the login node: options #2 (`make`), #3
+(`mkdir`), and #5 (`tar`) are probably OK. Note that script names do not
+always reflect their contents: before launching #3, please
+`less create_directories.sh` and make sure it's not a Trojan horse.
+
+Running resource-intensive applications is frowned upon. Unless you are
+sure it will not affect other users, do not run jobs like #1 (`python`)
+or #4 (custom MD code). If you're unsure, ask your friendly sysadmin for
+advice.
+
+
+
+:::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 If you experience performance issues with a login node you should report it to
 the system staff (usually via the helpdesk) for them to investigate.
@@ -110,14 +124,18 @@ to a trivial typo in the job script. This is extremely frustrating!
 Most systems provide dedicated resources for testing that have short wait times
 to help you avoid this issue.
 
-> ## Test Job Submission Scripts That Use Large Amounts of Resources
->
-> Before submitting a large run of jobs, submit one as a test first to make
-> sure everything works as expected.
->
-> Before submitting a very large or very long job submit a short truncated test
-> to ensure that the job starts as expected.
-{: .callout}
+:::::::::::::::::::::::::::::::::::::::::  callout
+
+## Test Job Submission Scripts That Use Large Amounts of Resources
+
+Before submitting a large run of jobs, submit one as a test first to make
+sure everything works as expected.
+
+Before submitting a very large or very long job submit a short truncated test
+to ensure that the job starts as expected.
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Have a Backup Plan
 
@@ -155,13 +173,17 @@ In all these cases, the helpdesk of the system you are using should be able to
 provide useful guidance on your options for data transfer for the volumes of
 data you will be using.
 
-> ## Your Data Is Your Responsibility
->
-> Make sure you understand what the backup policy is on the file systems on the
-> system you are using and what implications this has for your work if you lose
-> your data on the system. Plan your backups of critical data and how you will
-> transfer data off the system throughout the project.
-{: .callout}
+:::::::::::::::::::::::::::::::::::::::::  callout
+
+## Your Data Is Your Responsibility
+
+Make sure you understand what the backup policy is on the file systems on the
+system you are using and what implications this has for your work if you lose
+your data on the system. Plan your backups of critical data and how you will
+transfer data off the system throughout the project.
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Transferring Data
 
@@ -174,13 +196,13 @@ and where the data is going.
 
 The components between your data's source and destination have
 varying levels of performance, and in particular, may have
-different capabilities with respect to __bandwidth__ and __latency__.
+different capabilities with respect to **bandwidth** and **latency**.
 
-__Bandwidth__ is generally the raw amount of data per unit time a
+**Bandwidth** is generally the raw amount of data per unit time a
 device is capable of transmitting or receiving. It's a common
 and generally well-understood metric.
 
-__Latency__ is a bit more subtle. For data transfers, it may be thought
+**Latency** is a bit more subtle. For data transfers, it may be thought
 of as the amount of time it takes to get data out of storage and into
 a transmittable form. Latency issues are the reason it's advisable
 to execute data transfers by moving a small number of large
@@ -188,12 +210,12 @@ files, rather than the converse.
 
 Some of the key components and their associated issues are:
 
-* __Disk speed__: File systems on HPC systems are often highly parallel,
+- **Disk speed**: File systems on HPC systems are often highly parallel,
   consisting of a very large number of high performance disk drives. This
   allows them to support a very high data bandwidth. Unless the remote system
   has a similar parallel file system you may find your transfer speed limited
   by disk performance at that end.
-* __Meta-data performance__: _Meta-data operations_ such as opening and closing
+- **Meta-data performance**: *Meta-data operations* such as opening and closing
   files or listing the owner or size of a file are much less parallel than
   read/write operations. If your data consists of a very large number of small
   files you may find your transfer speed is limited by meta-data operations.
@@ -201,11 +223,11 @@ Some of the key components and their associated issues are:
   strongly with those you perform so reducing the number of such operations you
   use (by combining multiple files into a single file) may reduce variability
   in your transfer rates and increase transfer speeds.
-* __Network speed__: Data transfer performance can be limited by network speed.
+- **Network speed**: Data transfer performance can be limited by network speed.
   More importantly it is limited by the slowest section of the network between
   source and destination. If you are transferring to your laptop/workstation,
   this is likely to be its connection (either via LAN or WiFi).
-* __Firewall speed__: Most modern networks are protected by some form of
+- **Firewall speed**: Most modern networks are protected by some form of
   firewall that filters out malicious traffic. This filtering has some overhead
   and can result in a reduction in data transfer performance. The needs of a
   general purpose network that hosts email/web-servers and desktop machines are
@@ -216,71 +238,85 @@ Some of the key components and their associated issues are:
 
 As mentioned above, if you have related data that consists of a large number of
 small files it is strongly recommended to pack the files into a larger
-_archive_ file for long term storage and transfer. A single large file makes
+*archive* file for long term storage and transfer. A single large file makes
 more efficient use of the file system and is easier to move, copy and transfer
 because significantly fewer metadata operations are required. Archive files can
 be created using tools like `tar` and `zip`. We have already met `tar` when we
 talked about data transfer earlier.
 
 {% include figure.html url="" max-width="90%"
-   file="/fig/responsibility-bandwidth.svg"
-   alt="Schematic of network bandwidth"
-   caption="<i>Schematic diagram of bandwidth and latency for disk and network
-   I/O. Each of the components on the figure is connected by a blue line of
-   width proportional to the interface bandwidth. The small mazes at the
-   link points illustrate the latency of the link, with more tortuous
-   mazes indicating higher latency.</i>" %}
+file="/fig/responsibility-bandwidth.svg"
+alt="Schematic of network bandwidth"
+caption="<i>Schematic diagram of bandwidth and latency for disk and network
+I/O. Each of the components on the figure is connected by a blue line of
+width proportional to the interface bandwidth. The small mazes at the
+link points illustrate the latency of the link, with more tortuous
+mazes indicating higher latency.</i>" %}
 
-> ## Consider the Best Way to Transfer Data
->
-> If you are transferring large amounts of data you will need to think about
-> what may affect your transfer performance. It is always useful to run some
-> tests that you can use to extrapolate how long it will take to transfer your
-> data.
->
-> Say you have a "data" folder containing 10,000 or so files, a healthy mix of
-> small and large ASCII and binary data. Which of the following would be the
-> best way to transfer them to {{ site.remote.name }}?
->
-> 1. ```
->    {{ site.local.prompt }} scp -r data {{ site.remote.user }}@{{ site.remote.login }}:~/
->    ```
->    {: .language-bash}
-> 2. ```
->    {{ site.local.prompt }} rsync -ra data {{ site.remote.user }}@{{ site.remote.login }}:~/
->    ```
->    {: .language-bash}
-> 3. ```
->    {{ site.local.prompt }} rsync -raz data {{ site.remote.user }}@{{ site.remote.login }}:~/
->    ```
->    {: .language-bash}
-> 4. ```
->    {{ site.local.prompt }} tar -cvf data.tar data
->    {{ site.local.prompt }} rsync -raz data.tar {{ site.remote.user }}@{{ site.remote.login }}:~/
->    ```
->    {: .language-bash}
-> 5. ```
->    {{ site.local.prompt }} tar -cvzf data.tar.gz data
->    {{ site.local.prompt }} rsync -ra data.tar.gz {{ site.remote.user }}@{{ site.remote.login }}:~/
->    ```
->    {: .language-bash}
->
-> > ## Solution
-> >
-> > 1. `scp` will recursively copy the directory. This works, but without
-> >    compression.
-> > 2. `rsync -ra` works like `scp -r`, but preserves file information like
-> >    creation times. This is marginally better.
-> > 3. `rsync -raz` adds compression, which will save some bandwidth. If you
-> >    have a strong CPU at both ends of the line, and you're on a slow
-> >    network, this is a good choice.
-> > 4. This command first uses `tar` to merge everything into a single file,
-> >    then `rsync -z` to transfer it with compression. With this large
-> >    _number_ of files, metadata overhead can hamper your transfer, so this
-> >    is a good idea.
-> > 5. This command uses `tar -z` to compress the archive, then `rsync` to
-> >    transfer it. This may perform similarly to #4, but in most cases (for
-> >    large datasets), it's the best combination of high throughput and low
-> >    latency (making the most of your time and network connection).
-> {: .solution}
-{: .challenge}
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## Consider the Best Way to Transfer Data
+
+If you are transferring large amounts of data you will need to think about
+what may affect your transfer performance. It is always useful to run some
+tests that you can use to extrapolate how long it will take to transfer your
+data.
+
+Say you have a "data" folder containing 10,000 or so files, a healthy mix of
+small and large ASCII and binary data. Which of the following would be the
+best way to transfer them to {{ site.remote.name }}?
+
+1. ```bash
+  {{ site.local.prompt }} scp -r data {{ site.remote.user }}@{{ site.remote.login }}:~/
+  ```
+2. ```bash
+  {{ site.local.prompt }} rsync -ra data {{ site.remote.user }}@{{ site.remote.login }}:~/
+  ```
+3. ```bash
+  {{ site.local.prompt }} rsync -raz data {{ site.remote.user }}@{{ site.remote.login }}:~/
+  ```
+4. ```bash
+  {{ site.local.prompt }} tar -cvf data.tar data
+  {{ site.local.prompt }} rsync -raz data.tar {{ site.remote.user }}@{{ site.remote.login }}:~/
+  ```
+5. ```bash
+  {{ site.local.prompt }} tar -cvzf data.tar.gz data
+  {{ site.local.prompt }} rsync -ra data.tar.gz {{ site.remote.user }}@{{ site.remote.login }}:~/
+  ```
+
+:::::::::::::::  solution
+
+## Solution
+
+1. `scp` will recursively copy the directory. This works, but without
+  compression.
+2. `rsync -ra` works like `scp -r`, but preserves file information like
+  creation times. This is marginally better.
+3. `rsync -raz` adds compression, which will save some bandwidth. If you
+  have a strong CPU at both ends of the line, and you're on a slow
+  network, this is a good choice.
+4. This command first uses `tar` to merge everything into a single file,
+  then `rsync -z` to transfer it with compression. With this large
+  *number* of files, metadata overhead can hamper your transfer, so this
+  is a good idea.
+5. This command uses `tar -z` to compress the archive, then `rsync` to
+  transfer it. This may perform similarly to #4, but in most cases (for
+  large datasets), it's the best combination of high throughput and low
+  latency (making the most of your time and network connection).
+  
+  
+
+:::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::: keypoints
+
+- Be careful how you use the login node.
+- Your data on the system is your responsibility.
+- Plan and test large data transfers.
+- It is often best to convert many files to a single archive file before transferring.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+

@@ -1,18 +1,21 @@
 ---
-title: "Accessing software via Modules"
+title: Accessing software via Modules
 teaching: 30
 exercises: 15
-questions:
-- "How do we load and unload software packages?"
-objectives:
-- "Load and use a software package."
-- "Explain how the shell environment changes when the module mechanism loads or unloads packages."
-keypoints:
-- "Load software with `module load softwareName`."
-- "Unload software with `module unload`"
-- "The module system handles software versioning and package conflicts for you
-  automatically."
 ---
+
+::::::::::::::::::::::::::::::::::::::: objectives
+
+- Load and use a software package.
+- Explain how the shell environment changes when the module mechanism loads or unloads packages.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::: questions
+
+- How do we load and unload software packages?
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 On a high-performance computing system, it is seldom the case that the software
 we want to use is available when we log in. It is installed, but we will need
@@ -48,19 +51,19 @@ to work.
 
 ## Environment Modules
 
-Environment modules are the solution to these problems. A _module_ is a
+Environment modules are the solution to these problems. A *module* is a
 self-contained description of a software package -- it contains the
 settings required to run a software package and, usually, encodes required
 dependencies on other software packages.
 
 There are a number of different environment module implementations commonly
-used on HPC systems: the two most common are _TCL modules_ and _Lmod_. Both of
+used on HPC systems: the two most common are *TCL modules* and *Lmod*. Both of
 these use similar syntax and the concepts are the same so learning to use one
 will allow you to use whichever is installed on the system you are using. In
 both implementations the `module` command is used to interact with environment
 modules. An additional subcommand is usually added to the command to specify
 what you want to do. For a list of subcommands you can use `module -h` or
-`module help`. As for all commands, you can access the full help on the _man_
+`module help`. As for all commands, you can access the full help on the *man*
 pages with `man module`.
 
 On login you may start out with a default set of modules loaded or you may
@@ -71,12 +74,11 @@ you are using.
 
 To see available software modules, use `module avail`:
 
-```
+```bash
 {{ site.remote.prompt }} module avail
 ```
-{: .language-bash}
 
-```
+```output
 ~~~ /cvmfs/pilot.eessi-hpc.org/2020.12/software/x86_64/amd/zen2/modules/all ~~~
   Bazel/3.6.0-GCCcore-x.y.z              NSS/3.51-GCCcore-x.y.z
   Bison/3.5.3-GCCcore-x.y.z              Ninja/1.10.0-GCCcore-x.y.z
@@ -96,7 +98,6 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".
 ```
-{: .output}
 
 ### Listing Currently Loaded Modules
 
@@ -104,15 +105,13 @@ You can use the `module list` command to see which modules you currently have
 loaded in your environment. If you have no modules loaded, you will see a
 message telling you so
 
-```
+```bash
 {{ site.remote.prompt }} module list
 ```
-{: .language-bash}
 
-```
+```output
 No Modulefiles Currently Loaded.
 ```
-{: .output}
 
 ## Loading and Unloading Software
 
@@ -123,23 +122,21 @@ Initially, Python 3 is not loaded. We can test this by using the `which`
 command. `which` looks for programs the same way that Bash does, so we can use
 it to tell us where a particular piece of software is stored.
 
-```
+```bash
 {{ site.remote.prompt }} which python3
 ```
-{: .language-bash}
 
 If the `python3` command was unavailable, we would see output like
 
-```
+```output
 /usr/bin/which: no python3 in (/cvmfs/pilot.eessi-hpc.org/2020.12/compat/linux/x86_64/usr/bin:/opt/software/slurm/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/opt/puppetlabs/bin:/home/{{site.remote.user}}/.local/bin:/home/{{site.remote.user}}/bin)
 ```
-{: .output}
 
 Note that this wall of text is really a list, with values separated
 by the `:` character. The output is telling us that the `which` command
 searched the following directories for `python3`, without success:
 
-```
+```output
 /cvmfs/pilot.eessi-hpc.org/2020.12/compat/linux/x86_64/usr/bin
 /opt/software/slurm/bin
 /usr/local/bin
@@ -150,30 +147,26 @@ searched the following directories for `python3`, without success:
 /home/{{site.remote.user}}/.local/bin
 /home/{{site.remote.user}}/bin
 ```
-{: .output}
 
 However, in our case we do have an existing `python3` available so we see
 
-```
+```output
 /cvmfs/pilot.eessi-hpc.org/2020.12/compat/linux/x86_64/usr/bin/python3
 ```
-{: .output}
 
 We need a different Python than the system provided one though, so let us load
 a module to access it.
 
 We can load the `python3` command with `module load`:
 
-```
+```bash
 {{ site.remote.prompt }} module load {{ site.remote.module_python3 }}
 {{ site.remote.prompt }} which python3
 ```
-{: .language-bash}
 
-```
+```output
 /cvmfs/pilot.eessi-hpc.org/2020.12/software/x86_64/amd/zen2/software/Python/3.x.y-GCCcore-x.y.z/bin/python3
 ```
-{: .output}
 
 So, what just happened?
 
@@ -184,27 +177,24 @@ directories (separated by `:`) that the OS searches through for a command
 before giving up and telling us it can't find it. As with all environment
 variables we can print it out using `echo`.
 
-```
+```bash
 {{ site.remote.prompt }} echo $PATH
 ```
-{: .language-bash}
 
-```
+```output
 /cvmfs/pilot.eessi-hpc.org/2020.12/software/x86_64/amd/zen2/software/Python/3.x.y-GCCcore-x.y.z/bin:/cvmfs/pilot.eessi-hpc.org/2020.12/software/x86_64/amd/zen2/software/SQLite/3.31.1-GCCcore-x.y.z/bin:/cvmfs/pilot.eessi-hpc.org/2020.12/software/x86_64/amd/zen2/software/Tcl/8.6.10-GCCcore-x.y.z/bin:/cvmfs/pilot.eessi-hpc.org/2020.12/software/x86_64/amd/zen2/software/GCCcore/x.y.z/bin:/cvmfs/pilot.eessi-hpc.org/2020.12/compat/linux/x86_64/usr/bin:/opt/software/slurm/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/opt/puppetlabs/bin:/home/user01/.local/bin:/home/user01/bin
 ```
-{: .output}
 
 You'll notice a similarity to the output of the `which` command. In this case,
 there's only one difference: the different directory at the beginning. When we
 ran the `module load` command, it added a directory to the beginning of our
 `$PATH`. Let's examine what's there:
 
-```
+```bash
 {{ site.remote.prompt }} ls /cvmfs/pilot.eessi-hpc.org/2020.12/software/x86_64/amd/zen2/software/Python/3.x.y-GCCcore-x.y.z/bin
 ```
-{: .language-bash}
 
-```
+```output
 2to3              nosetests-3.8  python                 rst2s5.py
 2to3-3.8          pasteurize     python3                rst2xetex.py
 chardetect        pbr            python3.8              rst2xml.py
@@ -219,7 +209,6 @@ idle3.8           pygmentize     rst2odt_prepstyles.py  virtualenv
 netaddr           pytest         rst2odt.py             wheel
 nosetests         py.test        rst2pseudoxml.py
 ```
-{: .output}
 
 Taking this to its conclusion, `module load` will add software to your `$PATH`.
 It "loads" software. A special note on this - depending on which version of the
@@ -229,26 +218,23 @@ required software dependencies.
 To demonstrate, let's use `module list`. `module list` shows all loaded
 software modules.
 
-```
+```bash
 {{ site.remote.prompt }} module list
 ```
-{: .language-bash}
 
-```
+```output
 Currently Loaded Modules:
   1) GCCcore/x.y.z                 4) GMP/6.2.0-GCCcore-x.y.z
   2) Tcl/8.6.10-GCCcore-x.y.z      5) libffi/3.3-GCCcore-x.y.z
   3) SQLite/3.31.1-GCCcore-x.y.z   6) Python/3.x.y-GCCcore-x.y.z
 ```
-{: .output}
 
-```
+```bash
 {{ site.remote.prompt }} module load GROMACS
 {{ site.remote.prompt }} module list
 ```
-{: .language-bash}
 
-```
+```output
 Currently Loaded Modules:
   1) GCCcore/x.y.z                    14) libfabric/1.11.0-GCCcore-x.y.z
   2) Tcl/8.6.10-GCCcore-x.y.z         15) PMIx/3.1.5-GCCcore-x.y.z
@@ -264,20 +250,18 @@ Currently Loaded Modules:
  12) libevent/2.1.11-GCCcore-x.y.z    25) GROMACS/2020.1-foss-2020a-Python-3...
  13) UCX/1.8.0-GCCcore-x.y.z
 ```
-{: .output}
 
 So in this case, loading the `GROMACS` module (a bioinformatics software
 package), also loaded `GMP/6.2.0-GCCcore-x.y.z` and
 `SciPy-bundle/2020.03-foss-2020a-Python-3.x.y` as well. Let's try unloading the
 `GROMACS` package.
 
-```
+```bash
 {{ site.remote.prompt }} module unload GROMACS
 {{ site.remote.prompt }} module list
 ```
-{: .language-bash}
 
-```
+```output
 Currently Loaded Modules:
   1) GCCcore/x.y.z                    13) UCX/1.8.0-GCCcore-x.y.z
   2) Tcl/8.6.10-GCCcore-x.y.z         14) libfabric/1.11.0-GCCcore-x.y.z
@@ -292,23 +276,20 @@ Currently Loaded Modules:
  11) hwloc/2.2.0-GCCcore-x.y.z        23) SciPy-bundle/2020.03-foss-2020a-Py...
  12) libevent/2.1.11-GCCcore-x.y.z    24) networkx/2.4-foss-2020a-Python-3.x.y
 ```
-{: .output}
 
 So using `module unload` "un-loads" a module, and depending on how a site is
- configured it may also unload all of the dependencies (in our case it does
- not). If we wanted to unload everything at once, we could run `module purge`
- (unloads everything).
+configured it may also unload all of the dependencies (in our case it does
+not). If we wanted to unload everything at once, we could run `module purge`
+(unloads everything).
 
-```
+```bash
 {{ site.remote.prompt }} module purge
 {{ site.remote.prompt }} module list
 ```
-{: .language-bash}
 
-```
+```output
 No modules loaded
 ```
-{: .output}
 
 Note that `module purge` is informative. It will also let us know if a default
 set of "sticky" packages cannot be unloaded (and how to actually unload these
@@ -338,12 +319,11 @@ software is loaded.
 
 Let's examine the output of `module avail` more closely.
 
-```
+```bash
 {{ site.remote.prompt }} module avail
 ```
-{: .language-bash}
 
-```
+```output
 ~~~ /cvmfs/pilot.eessi-hpc.org/2020.12/software/x86_64/amd/zen2/modules/all ~~~
   Bazel/3.6.0-GCCcore-x.y.z              NSS/3.51-GCCcore-x.y.z
   Bison/3.5.3-GCCcore-x.y.z              Ninja/1.10.0-GCCcore-x.y.z
@@ -363,40 +343,52 @@ Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".
 ```
-{: .output}
 
-> ## Using Software Modules in Scripts
->
-> Create a job that is able to run `python3 --version`. Remember, no software
-> is loaded by default! Running a job is just like logging on to the system
-> (you should not assume a module loaded on the login node is loaded on a
-> compute node).
->
-> > ## Solution
-> >
-> > ```
-> > {{ site.remote.prompt }} nano python-module.sh
-> > {{ site.remote.prompt }} cat python-module.sh
-> > ```
-> > {: .language-bash}
-> >
-> > ```
-> > {{ site.remote.bash_shebang }}
-> > {{ site.sched.comment }} {{ site.sched.flag.partition }}{% if site.sched.flag.qos %}
-> > {{ site.sched.comment }} {{ site.sched.flag.qos }}
-> > {% endif %}{{ site.sched.comment }} {{ site.sched.flag.time }} 00:00:30
-> > 
-> > module load {{ site.remote.module_python3 }}
-> >
-> > python3 --version
-> > ```
-> > {: .output}
-> >
-> > ```
-> > {{ site.remote.prompt }} {{ site.sched.submit.name }} {% if site.sched.submit.options != '' %}{{ site.sched.submit.options }} {% endif %}python-module.sh
-> > ```
-> > {: .language-bash}
-> {: .solution}
-{: .challenge}
+:::::::::::::::::::::::::::::::::::::::  challenge
 
-{% include links.md %}
+## Using Software Modules in Scripts
+
+Create a job that is able to run `python3 --version`. Remember, no software
+is loaded by default! Running a job is just like logging on to the system
+(you should not assume a module loaded on the login node is loaded on a
+compute node).
+
+:::::::::::::::  solution
+
+## Solution
+
+```bash
+{{ site.remote.prompt }} nano python-module.sh
+{{ site.remote.prompt }} cat python-module.sh
+```
+
+```output
+{{ site.remote.bash_shebang }}
+{{ site.sched.comment }} {{ site.sched.flag.partition }}{% if site.sched.flag.qos %}
+{{ site.sched.comment }} {{ site.sched.flag.qos }}
+{% endif %}{{ site.sched.comment }} {{ site.sched.flag.time }} 00:00:30
+
+module load {{ site.remote.module_python3 }}
+
+python3 --version
+```
+
+```bash
+{{ site.remote.prompt }} {{ site.sched.submit.name }} {% if site.sched.submit.options != '' %}{{ site.sched.submit.options }} {% endif %}python-module.sh
+```
+
+:::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+
+:::::::::::::::::::::::::::::::::::::::: keypoints
+
+- Load software with `module load softwareName`.
+- Unload software with `module unload`
+- The module system handles software versioning and package conflicts for you automatically.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+

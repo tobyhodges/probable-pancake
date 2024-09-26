@@ -2,28 +2,35 @@
 title: Environment Variables
 teaching: 10
 exercises: 5
-questions:
-- "How are variables set and accessed in the Unix shell?"
-- "How can I use variables to change how a program runs?"
-objectives:
-- "Understand how variables are implemented in the shell"
-- "Read the value of an existing variable"
-- "Create new variables and change their values"
-- "Change the behaviour of a program using an environment variable"
-- "Explain how the shell uses the `PATH` variable to search for executables"
-keypoints:
-- "Shell variables are by default treated as strings"
-- "Variables are assigned using \"`=`\" and recalled using the variable's name prefixed by \"`$`\""
-- "Use \"`export`\" to make an variable available to other programs"
-- "The `PATH` variable defines the shell's search path"
 ---
 
-> ## Episode provenance
->
-> This episode has been remixed from the
-> [Shell Extras episode on Shell Variables](https://github.com/carpentries-incubator/shell-extras/blob/gh-pages/_episodes/08-environment-variables.md)
-> and the [HPC Shell episode on scripts](https://github.com/hpc-carpentry/hpc-shell/blob/gh-pages/_episodes/05-scripts.md)
-{: .callout}
+::::::::::::::::::::::::::::::::::::::: objectives
+
+- Understand how variables are implemented in the shell
+- Read the value of an existing variable
+- Create new variables and change their values
+- Change the behaviour of a program using an environment variable
+- Explain how the shell uses the `PATH` variable to search for executables
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::: questions
+
+- How are variables set and accessed in the Unix shell?
+- How can I use variables to change how a program runs?
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::::  callout
+
+## Episode provenance
+
+This episode has been remixed from the
+[Shell Extras episode on Shell Variables](https://github.com/carpentries-incubator/shell-extras/blob/gh-pages/_episodes/08-environment-variables.md)
+and the [HPC Shell episode on scripts](https://github.com/hpc-carpentry/hpc-shell/blob/gh-pages/_episodes/05-scripts.md)
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 The shell is just a program, and like other programs, it has variables.
 Those variables control its execution,
@@ -39,12 +46,11 @@ best way to understand how they work is to see them in action.
 Let's start by running the command `set` and looking at some of the variables
 in a typical shell session:
 
-~~~
+```bash
 set
-~~~
-{: .language-bash}
+```
 
-~~~
+```output
 COMPUTERNAME=TURING
 HOME=/home/vlad
 HOSTNAME=TURING
@@ -55,8 +61,7 @@ PWD=/home/vlad
 UID=1000
 USERNAME=vlad
 ...
-~~~
-{: .output}
+```
 
 As you can see, there are quite a few — in fact,
 four or five times more than what's shown here.
@@ -76,29 +81,25 @@ string to an integer.
 
 Let's show the value of the variable `HOME`:
 
-~~~
+```bash
 echo HOME
-~~~
-{: .language-bash}
+```
 
-~~~
+```output
 HOME
-~~~
-{: .output}
+```
 
 That just prints "HOME", which isn't what we wanted
 (though it is what we actually asked for).
 Let's try this instead:
 
-~~~
+```bash
 echo $HOME
-~~~
-{: .language-bash}
+```
 
-~~~
+```output
 /home/vlad
-~~~
-{: .output}
+```
 
 The dollar sign tells the shell that we want the *value* of the variable
 rather than its name.
@@ -110,121 +111,123 @@ which displays the right thing.
 ## Creating and Changing Variables
 
 Creating a variable is easy — we just assign a value to a name using "="
-(we just have to remember that the syntax requires that there are _no_ spaces
+(we just have to remember that the syntax requires that there are *no* spaces
 around the `=`!):
 
-~~~
+```bash
 SECRET_IDENTITY=Dracula
 echo $SECRET_IDENTITY
-~~~
-{: .language-bash}
+```
 
-~~~
+```output
 Dracula
-~~~
-{: .output}
+```
 
 To change the value, just assign a new one:
 
-~~~
+```bash
 SECRET_IDENTITY=Camilla
 echo $SECRET_IDENTITY
-~~~
-{: .language-bash}
+```
 
-~~~
+```output
 Camilla
-~~~
-{: .output}
+```
 
 ## Environment variables
 
 When  we ran the `set` command we saw there were a lot of variables whose names
 were in upper case. That's because, by convention, variables that are also
-available to use by _other_ programs are given upper-case names. Such variables
-are called _environment variables_ as they are shell variables that are defined
+available to use by *other* programs are given upper-case names. Such variables
+are called *environment variables* as they are shell variables that are defined
 for the current shell and are inherited by any child shells or processes.
 
 To create an environment variable you need to `export` a shell variable. For
 example, to make our `SECRET_IDENTITY` available to other programs that we call
 from our shell we can do:
 
-~~~
+```bash
 SECRET_IDENTITY=Camilla
 export SECRET_IDENTITY
-~~~
-{: .language-bash}
+```
 
 You can also create and export the variable in a single step:
 
-~~~
+```bash
 export SECRET_IDENTITY=Camilla
-~~~
-{: .language-bash}
+```
 
-> ## Using environment variables to change program behaviour
->
-> Set a shell variable `TIME_STYLE` to have a value of `iso` and check this
-> value using the `echo` command.
->
-> Now, run the command `ls` with the option `-l` (which gives a long format).
->
-> `export` the variable and rerun the `ls -l` command. Do you notice any
-> difference?
->
-> > ## Solution
-> >
-> > The `TIME_STYLE` variable is not _seen_ by `ls` until is exported, at which
-> > point it is used by `ls` to decide what date format to use when presenting
-> > the timestamp of files.
-> >
-> {: .solution}
-{: .challenge}
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## Using environment variables to change program behaviour
+
+Set a shell variable `TIME_STYLE` to have a value of `iso` and check this
+value using the `echo` command.
+
+Now, run the command `ls` with the option `-l` (which gives a long format).
+
+`export` the variable and rerun the `ls -l` command. Do you notice any
+difference?
+
+:::::::::::::::  solution
+
+## Solution
+
+The `TIME_STYLE` variable is not *seen* by `ls` until is exported, at which
+point it is used by `ls` to decide what date format to use when presenting
+the timestamp of files.
+
+:::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 You can see the  complete set of environment variables in your current shell
 session with the command `env` (which returns a subset of what the command
 `set` gave us). **The complete set of environment variables is called
-your _runtime environment_ and can affect the behaviour of the programs you
+your *runtime environment* and can affect the behaviour of the programs you
 run**.
 
-> ## Job environment variables
->
-> When {{ site.sched.name }} runs a job, it sets a number of environment
-> variables for the job. One of these will let us check what directory our job
-> script was submitted from. The `SLURM_SUBMIT_DIR` variable is set to the
-> directory from which our job was submitted. Using the `SLURM_SUBMIT_DIR`
-> variable, modify your job so that it prints out the location from which the
-> job was submitted.
->
-> > ## Solution
-> >
-> > ```
-> > {{ site.remote.prompt }} nano example-job.sh
-> > {{ site.remote.prompt }} cat example-job.sh
-> > ```
-> > {: .language-bash}
-> >
-> > ```
-> > {{ site.remote.bash_shebang }}
-> > #SBATCH -t 00:00:30
-> >
-> > echo -n "This script is running on "
-> > hostname
-> >
-> > echo "This job was launched in the following directory:"
-> > echo ${SLURM_SUBMIT_DIR}
-> > ```
-> > {: .output}
-> {: .solution}
-{: .challenge}
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## Job environment variables
+
+When {{ site.sched.name }} runs a job, it sets a number of environment
+variables for the job. One of these will let us check what directory our job
+script was submitted from. The `SLURM_SUBMIT_DIR` variable is set to the
+directory from which our job was submitted. Using the `SLURM_SUBMIT_DIR`
+variable, modify your job so that it prints out the location from which the
+job was submitted.
+
+:::::::::::::::  solution
+
+## Solution
+
+```bash
+{{ site.remote.prompt }} nano example-job.sh
+{{ site.remote.prompt }} cat example-job.sh
+```
+
+```output
+{{ site.remote.bash_shebang }}
+#SBATCH -t 00:00:30
+
+echo -n "This script is running on "
+hostname
+
+echo "This job was launched in the following directory:"
+echo ${SLURM_SUBMIT_DIR}
+```
+
+:::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 To remove a variable or environment variable you can use the `unset` command,
 for example:
 
-~~~
+```bash
 unset SECRET_IDENTITY
-~~~
-{: .language-bash}
+```
 
 ## The `PATH` Environment Variable
 
@@ -249,7 +252,7 @@ As soon as it finds a match, it stops searching and runs the program.
 To show how this works,
 here are the components of `PATH` listed one per line:
 
-~~~
+```output
 /Users/vlad/bin
 /usr/local/git/bin
 /usr/bin
@@ -257,8 +260,7 @@ here are the components of `PATH` listed one per line:
 /usr/sbin
 /sbin
 /usr/local/bin
-~~~
-{: .output}
+```
 
 On our computer,
 there are actually three programs called `analyze`
@@ -283,4 +285,15 @@ runtime environment to make that possible without us needing to do a lot of
 bookkeeping on what the value of `PATH` (and other important environment
 variables) is or should be.
 
-{% include links.md %}
+
+
+:::::::::::::::::::::::::::::::::::::::: keypoints
+
+- Shell variables are by default treated as strings
+- Variables are assigned using "`=`" and recalled using the variable's name prefixed by "`$`"
+- Use "`export`" to make an variable available to other programs
+- The `PATH` variable defines the shell's search path
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
