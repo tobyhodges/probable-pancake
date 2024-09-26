@@ -195,7 +195,7 @@ is running and when it ends:
 Use `ls` to locate the output file. The `-t` flag sorts in
 reverse-chronological order: newest first. What was the output?
 
-:::::::::::::::  solution
+:::::::::::::::  spoiler
 
 ## Read the Job Output
 

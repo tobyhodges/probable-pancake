@@ -36,7 +36,7 @@ Take a look at your home directory on the remote system:
 {{ site.remote.prompt }} ls
 ```
 
-::::::::::::::::::::::::::::::::::::::  discussion
+::::::::::::::::::::::::::::::::::::::  challenge
 
 ## What's different between your machine and the remote?
 
@@ -320,7 +320,7 @@ memory available on the worker nodes:
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::  discussion
+::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Compare Your Computer, the Login Node and the Compute Node
 
