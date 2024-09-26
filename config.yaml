@@ -33,7 +33,7 @@ life_cycle: 'alpha'
 license: 'CC-BY 4.0'
 
 # Link to the source repository for this lesson
-source: 'https://github.com/fishtree-attempt/hpc-intro-online/'
+source: 'https://github.com/tkphd/hpc-intro-online'
 
 # Default branch of your lesson
 branch: 'main'
@@ -92,7 +92,6 @@ profiles:
 
 
 carpentry_description: Lesson Description
-url: https://preview.carpentries.org/hpc-intro-online
+url: 'https://tkphd.github.io/hpc-intro-online'
 analytics: carpentries
 lang: en
-workbench-beta: yes
