@@ -20,7 +20,7 @@ carpentry: 'cp'
 title: 'Introduction to High-Performance Computing'
 
 # Date the lesson was created (YYYY-MM-DD, this is empty by default)
-created: 
+created: 2017-03-24 
 
 # Comma-separated list of keywords for the lesson
 keywords: 'software, data, lesson, The Carpentries'
@@ -33,7 +33,7 @@ life_cycle: 'alpha'
 license: 'CC-BY 4.0'
 
 # Link to the source repository for this lesson
-source: 'https://github.com/tkphd/hpc-intro-online'
+source: 'https://github.com/tobyhodges/probable-pancake'
 
 # Default branch of your lesson
 branch: 'main'
