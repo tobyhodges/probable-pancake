@@ -244,14 +244,12 @@ because significantly fewer metadata operations are required. Archive files can
 be created using tools like `tar` and `zip`. We have already met `tar` when we
 talked about data transfer earlier.
 
-{% include figure.html url="" max-width="90%"
-file="/fig/responsibility-bandwidth.svg"
-alt="Schematic of network bandwidth"
-caption="<i>Schematic diagram of bandwidth and latency for disk and network
+![Schematic diagram of bandwidth and latency for disk and network
 I/O. Each of the components on the figure is connected by a blue line of
 width proportional to the interface bandwidth. The small mazes at the
 link points illustrate the latency of the link, with more tortuous
-mazes indicating higher latency.</i>" %}
+mazes indicating higher latency.](/fig/responsibility-bandwidth.svg){max-width="90%"
+alt="Schematic of network bandwidth"}
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
@@ -266,20 +264,25 @@ Say you have a "data" folder containing 10,000 or so files, a healthy mix of
 small and large ASCII and binary data. Which of the following would be the
 best way to transfer them to {{ site.remote.name }}?
 
-1. ```bash
+1. 
+  ```bash
   {{ site.local.prompt }} scp -r data {{ site.remote.user }}@{{ site.remote.login }}:~/
   ```
-2. ```bash
+2. 
+  ```bash
   {{ site.local.prompt }} rsync -ra data {{ site.remote.user }}@{{ site.remote.login }}:~/
   ```
-3. ```bash
+3. 
+  ```bash
   {{ site.local.prompt }} rsync -raz data {{ site.remote.user }}@{{ site.remote.login }}:~/
   ```
-4. ```bash
+4. 
+  ```bash
   {{ site.local.prompt }} tar -cvf data.tar data
   {{ site.local.prompt }} rsync -raz data.tar {{ site.remote.user }}@{{ site.remote.login }}:~/
   ```
-5. ```bash
+5. 
+  ```bash
   {{ site.local.prompt }} tar -cvzf data.tar.gz data
   {{ site.local.prompt }} rsync -ra data.tar.gz {{ site.remote.user }}@{{ site.remote.login }}:~/
   ```
