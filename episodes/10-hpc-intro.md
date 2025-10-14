@@ -25,7 +25,7 @@ of the desktop or laptop computer where they started:
   the model 1000 times -- but each run takes an hour. Running the model on
   a laptop will take over a month! In this research problem, final results are
   calculated after all 1000 models have run, but typically only one model is
-  run at a time (in **serial**) on the laptop. Since each of the 1000 runs is
+  run at a time (in **serial**) on the laprgdgafdtop. Since each of the 1000 runs is
   independent of all others, and given enough computers, it's theoretically
   possible to run them all at once (in **parallel**).
 - A genomics researcher has been using small datasets of sequence data, but
