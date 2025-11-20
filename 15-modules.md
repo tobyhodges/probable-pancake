@@ -4,6 +4,8 @@ teaching: 30
 exercises: 15
 ---
 
+
+
 ::::::::::::::::::::::::::::::::::::::: objectives
 
 - Load and use a software package.
@@ -33,11 +35,11 @@ presence (or absence) of a software package will break others that depend on
 it. Two well known examples are Python and C compiler versions.
 Python 3 famously provides a `python` command that conflicts with that provided
 by Python 2. Software compiled against a newer version of the C libraries and
-then run on a machine that has older C libraries installed will result in a
-nasty `'GLIBCXX_3.4.20' not found` error.
+then run on a machine that has older C libraries installed will result in an
+opaque `'GLIBCXX_3.4.20' not found` error.
 
 Software versioning is another common issue. A team might depend on a certain
-package version for their research project - if the software version was to
+package version for their research project -- if the software version was to
 change (for instance, if a package was updated), it might affect their results.
 Having access to multiple software versions allows a set of researchers to
 prevent software versioning issues from affecting their results.
@@ -45,7 +47,7 @@ prevent software versioning issues from affecting their results.
 Dependencies are where a particular software package (or even a particular
 version) depends on having access to another software package (or even a
 particular version of another software package). For example, the VASP
-materials science software may depend on having a particular version of the
+materials science software may require a particular version of the
 FFTW (Fastest Fourier Transform in the West) software library available for it
 to work.
 
@@ -74,8 +76,9 @@ you are using.
 
 To see available software modules, use `module avail`:
 
+
 ```bash
-{{ site.remote.prompt }} module avail
+[yourUsername@login1 ~]$ module avail | less
 ```
 
 ```output
@@ -90,23 +93,25 @@ To see available software modules, use `module avail`:
 
   Where:
    L:        Module is loaded
-   Aliases:  Aliases exist: foo/1.2.3 (1.2) means that "module load foo/1.2"
-             will load foo/1.2.3
    D:        Default Module
+   Aliases exist: foo/1.2.3 (1.2) means that
+             "module load foo/1.2" will load foo/1.2.3
 
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".
 ```
 
+Note that piping the output through `less` allows us to search within the output using the <kbd>/</kbd> key.
+
 ### Listing Currently Loaded Modules
 
 You can use the `module list` command to see which modules you currently have
 loaded in your environment. If you have no modules loaded, you will see a
-message telling you so
+message telling you so.
 
 ```bash
-{{ site.remote.prompt }} module list
+[yourUsername@login1 ~]$ module list
 ```
 
 ```output
@@ -115,21 +120,22 @@ No Modulefiles Currently Loaded.
 
 ## Loading and Unloading Software
 
-To load a software module, use `module load`. In this example we will use
-Python 3.
+To load a software module, use `module load`.
 
-Initially, Python 3 is not loaded. We can test this by using the `which`
-command. `which` looks for programs the same way that Bash does, so we can use
-it to tell us where a particular piece of software is stored.
+In this example we will use Python 3. Initially, it is not loaded.
+We can test this by using the `which` command. `which` looks for
+programs the same way that Bash does, so we can use it to tell us
+where a particular piece of software is stored.
 
 ```bash
-{{ site.remote.prompt }} which python3
+[yourUsername@login1 ~]$ which python3
 ```
+
 
 If the `python3` command was unavailable, we would see output like
 
 ```output
-/usr/bin/which: no python3 in (/cvmfs/pilot.eessi-hpc.org/2020.12/compat/linux/x86_64/usr/bin:/opt/software/slurm/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/opt/puppetlabs/bin:/home/{{site.remote.user}}/.local/bin:/home/{{site.remote.user}}/bin)
+/usr/bin/which: no python3 in (/cvmfs/pilot.eessi-hpc.org/2020.12/compat/linux/x86_64/usr/bin:/opt/software/slurm/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/opt/puppetlabs/bin:/home/yourUsername/.local/bin:/home/yourUsername/bin)
 ```
 
 Note that this wall of text is really a list, with values separated
@@ -144,8 +150,8 @@ searched the following directories for `python3`, without success:
 /usr/local/sbin
 /usr/sbin
 /opt/puppetlabs/bin
-/home/{{site.remote.user}}/.local/bin
-/home/{{site.remote.user}}/bin
+/home/yourUsername/.local/bin
+/home/yourUsername/bin
 ```
 
 However, in our case we do have an existing `python3` available so we see
@@ -159,9 +165,10 @@ a module to access it.
 
 We can load the `python3` command with `module load`:
 
+
 ```bash
-{{ site.remote.prompt }} module load {{ site.remote.module_python3 }}
-{{ site.remote.prompt }} which python3
+[yourUsername@login1 ~]$ module load Python
+[yourUsername@login1 ~]$ which python3
 ```
 
 ```output
@@ -178,7 +185,7 @@ before giving up and telling us it can't find it. As with all environment
 variables we can print it out using `echo`.
 
 ```bash
-{{ site.remote.prompt }} echo $PATH
+[yourUsername@login1 ~]$ echo $PATH
 ```
 
 ```output
@@ -188,10 +195,11 @@ variables we can print it out using `echo`.
 You'll notice a similarity to the output of the `which` command. In this case,
 there's only one difference: the different directory at the beginning. When we
 ran the `module load` command, it added a directory to the beginning of our
-`$PATH`. Let's examine what's there:
+`$PATH` -- or "prepended to PATH". Let's examine what's there:
+
 
 ```bash
-{{ site.remote.prompt }} ls /cvmfs/pilot.eessi-hpc.org/2020.12/software/x86_64/amd/zen2/software/Python/3.x.y-GCCcore-x.y.z/bin
+[yourUsername@login1 ~]$ ls /cvmfs/pilot.eessi-hpc.org/2020.12/software/x86_64/amd/zen2/software/Python/3.x.y-GCCcore-x.y.z/bin
 ```
 
 ```output
@@ -215,11 +223,12 @@ It "loads" software. A special note on this - depending on which version of the
 `module` program that is installed at your site, `module load` will also load
 required software dependencies.
 
+
 To demonstrate, let's use `module list`. `module list` shows all loaded
 software modules.
 
 ```bash
-{{ site.remote.prompt }} module list
+[yourUsername@login1 ~]$ module list
 ```
 
 ```output
@@ -230,8 +239,8 @@ Currently Loaded Modules:
 ```
 
 ```bash
-{{ site.remote.prompt }} module load GROMACS
-{{ site.remote.prompt }} module list
+[yourUsername@login1 ~]$ module load GROMACS
+[yourUsername@login1 ~]$ module list
 ```
 
 ```output
@@ -257,8 +266,8 @@ package), also loaded `GMP/6.2.0-GCCcore-x.y.z` and
 `GROMACS` package.
 
 ```bash
-{{ site.remote.prompt }} module unload GROMACS
-{{ site.remote.prompt }} module list
+[yourUsername@login1 ~]$ module unload GROMACS
+[yourUsername@login1 ~]$ module list
 ```
 
 ```output
@@ -283,8 +292,8 @@ not). If we wanted to unload everything at once, we could run `module purge`
 (unloads everything).
 
 ```bash
-{{ site.remote.prompt }} module purge
-{{ site.remote.prompt }} module list
+[yourUsername@login1 ~]$ module purge
+[yourUsername@login1 ~]$ module list
 ```
 
 ```output
@@ -317,10 +326,12 @@ certain version, or version X broke compatibility with a file format you use.
 In either of these example cases, it helps to be very specific about what
 software is loaded.
 
-Let's examine the output of `module avail` more closely.
+Let's examine the output of `module avail` more closely, using the pager since
+there may be reams of output:
+
 
 ```bash
-{{ site.remote.prompt }} module avail
+[yourUsername@login1 ~]$ module avail | less
 ```
 
 ```output
@@ -335,14 +346,19 @@ Let's examine the output of `module avail` more closely.
 
   Where:
    L:        Module is loaded
-   Aliases:  Aliases exist: foo/1.2.3 (1.2) means that "module load foo/1.2"
-             will load foo/1.2.3
    D:        Default Module
+   Aliases exist: foo/1.2.3 (1.2) means that
+             "module load foo/1.2" will load foo/1.2.3
 
 Use "module spider" to find all possible modules and extensions.
 Use "module keyword key1 key2 ..." to search for all possible modules matching
 any of the "keys".
 ```
+
+If the software your Slurm script runs requires on a specific version
+of a dependency, make sure you use the full name of the module, rather
+than the _default_ loaded when you give only its name (up to the first
+slash).
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
@@ -358,29 +374,27 @@ compute node).
 ## Solution
 
 ```bash
-{{ site.remote.prompt }} nano python-module.sh
-{{ site.remote.prompt }} cat python-module.sh
+[yourUsername@login1 ~]$ nano python-module.sh
+[yourUsername@login1 ~]$ cat python-module.sh
 ```
 
 ```output
-{{ site.remote.bash_shebang }}
-{{ site.sched.comment }} {{ site.sched.flag.partition }}{% if site.sched.flag.qos %}
-{{ site.sched.comment }} {{ site.sched.flag.qos }}
-{% endif %}{{ site.sched.comment }} {{ site.sched.flag.time }} 00:00:30
+#!/bin/bash
+#SBATCH 
+r config$sched$comment` -t 00:00:30
 
-module load {{ site.remote.module_python3 }}
+module load Python
 
 python3 --version
 ```
 
 ```bash
-{{ site.remote.prompt }} {{ site.sched.submit.name }} {% if site.sched.submit.options != '' %}{{ site.sched.submit.options }} {% endif %}python-module.sh
+[yourUsername@login1 ~]$ sbatch  python-module.sh
 ```
 
 :::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
-
 
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
@@ -390,5 +404,3 @@ python3 --version
 - The module system handles software versioning and package conflicts for you automatically.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
-
-

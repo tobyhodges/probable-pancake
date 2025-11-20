@@ -1,0 +1,4 @@
+---
+main_config: files/snippets/HPCC_MagicCastle_slurm/_config_options.yml
+snippets: HPCC_MagicCastle_slurm
+...
